@@ -12,7 +12,7 @@ from scipy.spatial import distance as dist
 
 from blink_detect import blink
 
-CUDA = True
+CUDA = False
 step = 30  # pixels per step TODO Adjust according to device DPI
 duration = 0.1  # mouse movement duration
 
@@ -203,7 +203,7 @@ def start_recognition(w):
     while ret:
         print(index)
         frame = cv2.flip(frame, 1)
-        frame = cv2.resize(frame, (256, 192))
+        frame = cv2.resize(frame, (512, 384))
 
         t = time.time()
         boxes = detect_face(detector, frame)
