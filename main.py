@@ -23,7 +23,6 @@ def open_main_window():
     setup_hook()
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     app = QApplication(sys.argv)
-    global w
     w = MainWindow()
     cp = QDesktopWidget().availableGeometry().bottomRight()
     qr = w.frameGeometry()

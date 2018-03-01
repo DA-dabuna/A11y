@@ -192,7 +192,7 @@ def start_recognition(w):
     plt.figure(num=1, figsize=(8, 4))
     plt.show()
 
-    blink_counter = 0
+    blink_counter, blink_total = 0, 0
 
     index = 0
     vc = cv2.VideoCapture(0)
@@ -247,7 +247,7 @@ def start_recognition(w):
         print('points used ' + str(time.time() - t) + 's')
         t = time.time()
 
-        blink_counter = blink(detector, predictor_blink, frame, blink_counter)
+        blink_counter, blink_total = blink(detector, predictor_blink, frame, blink_counter, blink_total)
         print('blink used ' + str(time.time() - t) + 's')
 
         show_image(frame, face_points, boxes, head_pose)

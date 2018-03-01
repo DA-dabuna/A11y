@@ -22,7 +22,7 @@ def eye_aspect_ratio(eye):
     return ear
 
 
-def blink(detector, predictor, frame, COUNTER):
+def blink(detector, predictor, frame, COUNTER, TOTAL):
     # define two constants, one for the eye aspect ratio to indicate
     # blink and then a second constant for the number of consecutive
     # frames the eye must be below the threshold
@@ -31,7 +31,7 @@ def blink(detector, predictor, frame, COUNTER):
 
     # initialize the frame counters and the total number of blinks
     # COUNTER = 0
-    TOTAL = 0
+    # TOTAL = 0
 
     # grab the indexes of the facial landmarks for the left and
     # right eye, respectively
@@ -98,6 +98,6 @@ def blink(detector, predictor, frame, COUNTER):
 
     # show the frame
     # cv2.imshow("Frame", frame)
-    print('blink total ' + TOTAL)
+    print('blink total ' + str(TOTAL))
     # key = cv2.waitKey(1) & 0xFF
-    return COUNTER
+    return COUNTER, TOTAL
