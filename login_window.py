@@ -8,7 +8,7 @@ import cv2
 import face_recognition
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QLineEdit, QLabel, QApplication
 from peewee import *
 
@@ -121,6 +121,13 @@ class Ui_LoginWindow(QtWidgets.QWidget):
         self.lb1.adjustSize()
         self.name_input.setMinimumHeight(30)
         self.name_input.move(25, 270)
+
+        # 鼠标状态显示
+        pixmap = QPixmap("img/mouse.png")
+        self.lb_mouse_status = QLabel(self)
+        self.lb_mouse_status.setPixmap(pixmap)
+        self.lb_mouse_status.move(25, 350)
+        self.lb_mouse_status.resize(100, 120)
 
         self.name_input.textChanged[str].connect(self.name_input_change)
 
