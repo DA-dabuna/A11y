@@ -1,10 +1,14 @@
-#coding:utf8
+# -*- coding: utf-8 -*- #
+
 from __future__ import print_function
 
 from . import recorder
+from multiprocessing import Process
 import wave
 import requests
 import pycurl
+import time
+import random
 
 global keywords
 
@@ -53,14 +57,19 @@ def use_cloud(token):
     c.perform()
     # print("finished api translate.")
 
-
-def run():
+def run(name):
     global keywords
-    token = get_token()
-    isOk = recorder.recorder()
-    if isOk:
-        use_cloud(token)
-    else:
-        print("用户语音过短")
-        keywords = ""
-    return keywords
+    while True:
+        token = get_token()
+        isOk = recorder.recorder()
+        if isOk:
+            use_cloud(token)    # 将用户语音信息写入 keywords 中
+        else:
+            keywords = ""
+
+def start():
+    p = Process(target=run,args=('recording',)) #必须加,号
+    p.start()
+
+if __name__ == '__main__':
+    start()
