@@ -12,7 +12,7 @@ from scipy.spatial import distance as dist
 
 from blink_detect import blink
 
-CUDA = True
+CUDA = False
 step = 30  # pixels per step TODO Adjust according to device DPI
 duration = 0.1  # mouse movement duration
 
