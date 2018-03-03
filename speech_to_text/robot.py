@@ -96,8 +96,14 @@ def user_instruction(commands):
         if "右" in commands:
             pyautogui.mouseUp(button='right')
             # print("松开右键")
-
-
+    
+    if commands.find("输入") == 0:
+        # 用户要输入文本时，以 “输入今天天气如何” 的格式进行语音控制
+        text = commands[2:]
+        # pyautogui.typewrite(text, interval=0.1)
+        text = str(text)
+        pyautogui.typewrite(text, interval=0.25)
+        # print(text)
 
 def run(name):
     global keywords
