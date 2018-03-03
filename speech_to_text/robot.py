@@ -43,7 +43,7 @@ def use_cloud(token):
         'Content-Type: audio/pcm; rate=8000',
         'Content-Length: %d' % f_len
     ]
-    # print("using baidu api...")
+    print("using baidu api...")
 
     c = pycurl.Curl()
     c.setopt(pycurl.URL, str(srv_url))  # curl doesn't support unicode
@@ -55,7 +55,11 @@ def use_cloud(token):
     c.setopt(c.POSTFIELDS, audio_data)
     c.setopt(c.POSTFIELDSIZE, f_len)
     c.perform()
-    # print("finished api translate.")
+    print("finished api translate.")
+
+def user_instruction(commands):
+    print(commands)
+
 
 def run(name):
     global keywords
@@ -64,8 +68,9 @@ def run(name):
         isOk = recorder.recorder()
         if isOk:
             use_cloud(token)    # 将用户语音信息写入 keywords 中
+            user_instruction(keywords)
         else:
-            keywords = ""
+            pass
 
 def start():
     p = Process(target=run,args=('recording',)) #必须加,号
