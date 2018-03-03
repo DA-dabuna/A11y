@@ -9,6 +9,7 @@ import requests
 import pycurl
 import time
 import random
+import pyautogui
 
 global keywords
 
@@ -27,7 +28,7 @@ def get_token():
 def dump_res(buf):
     global keywords
     json_buff = eval(buf)
-    keywords = json_buff['result']
+    keywords = json_buff['result'][0]
     # print(keywords)
 
 
@@ -59,6 +60,43 @@ def use_cloud(token):
 
 def user_instruction(commands):
     print(commands)
+    if "上" in commands:
+        pyautogui.scroll(clicks=1)
+        # print("滚轮向上")
+    if "下" in commands:
+        pyautogui.scroll(clicks=-1)
+        # print("滚轮向下")
+
+    if "点" in commands:
+        if "左" in commands:
+            pyautogui.click(button='left')
+            # print("点击左键")
+        if "右" in commands:
+            pyautogui.click(button='right')
+            # print("点击右键")
+    if "双" in commands:
+        if "左" in commands:
+            pyautogui.doubleClick(button='left')
+            # print("双击左键")
+        if "右" in commands:
+            pyautogui.doubleClick(button='right')
+            # print("双击右键")
+
+    if "按" in commands:
+        if "左" in commands:
+            pyautogui.mouseDown(button='left')
+            # print("按住左键")
+        if "右" in commands:
+            pyautogui.mouseDown(button='right')
+            # print("按住右键")
+    if "开" in commands:
+        if "左" in commands:
+            pyautogui.mouseUp(button='left')
+            # print("松开左键")
+        if "右" in commands:
+            pyautogui.mouseUp(button='right')
+            # print("松开右键")
+
 
 
 def run(name):

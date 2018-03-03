@@ -25,4 +25,4 @@ if __name__ == '__main__':
 
     for _ in range(1,100):
     	time.sleep(1)
-    	print("父进程正在运行")
+    	# print("父进程正在运行")
