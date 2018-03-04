@@ -28,7 +28,10 @@ def get_token():
 def dump_res(buf):
     global keywords
     json_buff = eval(buf)
-    keywords = json_buff['result'][0]
+    if "result" in json_buff.keys():
+        keywords = json_buff['result'][0]
+    else:
+        keywords = "请再说一遍"
     # print(keywords)
 
 
@@ -107,8 +110,8 @@ def user_instruction(commands):
 
 def run(name):
     global keywords
+    token = get_token()
     while True:
-        token = get_token()
         isOk = recorder.recorder()
         if isOk:
             use_cloud(token)    # 将用户语音信息写入 keywords 中
