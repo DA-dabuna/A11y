@@ -186,10 +186,10 @@ class Ui_LoginWindow(QtWidgets.QWidget):
                             msg = QtWidgets.QMessageBox.warning(self, u"登陆成功", message,
                                                                 buttons=QtWidgets.QMessageBox.Ok,
                                                                 defaultButton=QtWidgets.QMessageBox.Ok)
-                            self.login_success = True
-                            self.close()
                             p = Process(target=open_main_window, args=())
                             p.start()
+                            self.login_success = True
+                            self.close()
                             p.join()
                         break
                 if not found:
