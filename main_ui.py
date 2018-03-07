@@ -14,6 +14,7 @@ class Ui_main_window(object):
         main_window.resize(204, 232)
         self.centralwidget = QtWidgets.QWidget(main_window)
         self.centralwidget.setObjectName("centralwidget")
+        '''
         self.left = QtWidgets.QLabel(self.centralwidget)
         self.left.setGeometry(QtCore.QRect(10, 60, 51, 61))
         self.left.setScaledContents(False)
@@ -30,6 +31,14 @@ class Ui_main_window(object):
         self.right.setGeometry(QtCore.QRect(130, 60, 51, 61))
         self.right.setScaledContents(False)
         self.right.setObjectName("right")
+        '''
+        self.img = QtWidgets.QLabel(self.centralwidget)
+        self.img.setGeometry(QtCore.QRect(15, 15, 250, 250))
+        self.img.setScaledContents(True)
+        self.img.setObjectName("img")
+        png = QtGui.QPixmap('img/m.png')
+        self.img.setPixmap(png)
+
         self.button_start = QtWidgets.QPushButton(self.centralwidget)
         self.button_start.setGeometry(QtCore.QRect(0, 0, 41, 23))
         self.button_start.setObjectName("button_start")
@@ -48,9 +57,9 @@ class Ui_main_window(object):
     def retranslateUi(self, main_window):
         _translate = QtCore.QCoreApplication.translate
         main_window.setWindowTitle(_translate("main_window", "MainWindow"))
-        self.left.setText(_translate("main_window", "<html><head/><body><p><span style=\" font-size:24pt;\">←</span></p></body></html>"))
-        self.down.setText(_translate("main_window", "<html><head/><body><p><span style=\" font-size:24pt;\">↓</span></p></body></html>"))
-        self.up.setText(_translate("main_window", "<html><head/><body><p><span style=\" font-size:24pt;\">↑</span></p></body></html>"))
-        self.right.setText(_translate("main_window", "<html><head/><body><p><span style=\" font-size:24pt;\">→</span></p></body></html>"))
+        #self.left.setText(_translate("main_window", "<html><head/><body><p><span style=\" font-size:24pt;\">←</span></p></body></html>"))
+        #self.down.setText(_translate("main_window", "<html><head/><body><p><span style=\" font-size:24pt;\">↓</span></p></body></html>"))
+        #self.up.setText(_translate("main_window", "<html><head/><body><p><span style=\" font-size:24pt;\">↑</span></p></body></html>"))
+        #self.right.setText(_translate("main_window", "<html><head/><body><p><span style=\" font-size:24pt;\">→</span></p></body></html>"))
         self.button_start.setText(_translate("main_window", "Start"))
 

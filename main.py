@@ -18,7 +18,8 @@ def setup_hook():
 
 if __name__ == '__main__':
     print("正在开启语音模块")
-    robot.start()
+
     print("语音模块已经开启")
     setup_hook()
     open_login_window()
+    robot.start()

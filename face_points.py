@@ -9,6 +9,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pyautogui
 from scipy.spatial import distance as dist
+from PyQt5 import QtCore, QtGui, QtWidgets
+from speech_to_text.database import QueueModel
+from speech_to_text.database import db
+import os
 
 from blink_detect import blink
 
@@ -16,31 +20,53 @@ CUDA = False
 step = 30  # pixels per step TODO Adjust according to device DPI
 duration = 0.1  # mouse movement duration
 
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 def mouse_control(face_point, head_pose, w):
     if not head_pose.any():
+        png = QtGui.QPixmap('img/m.png')
+        w.img.setPixmap(png)
         return
-    for a in [w.left, w.right, w.up, w.down]:
-        a.setVisible(False)
+    #for a in [w.left, w.right, w.up, w.down]:
+    #    a.setVisible(False)
+
+    db.connect()
+    if not os.path.exists(os.path.join(BASEDIR, 'lock.db')) or True:
+        db.create_tables([QueueModel])
+        if QueueModel.pop() == 'l':
+            png = QtGui.QPixmap('img/lc.png')
+            w.img.setPixmap(png)
+        else:
+            png = QtGui.QPixmap('img/rc.png')
+            w.img.setPixmap(png)
+    db.close()
 
     # determine pitch for up & down
     print('pose pitch ' + str(head_pose[0, 0]))
     # TODO laptop screen angle adjustment
     if 0 < head_pose[0, 0] < 30:
         pyautogui.moveRel(0, step, duration=duration)
-        w.down.setVisible(True)
+        #w.down.setVisible(True)
+        png = QtGui.QPixmap('img/d.png')
+        w.img.setPixmap(png)
     if -30 < head_pose[0, 0] < -20:
         pyautogui.moveRel(0, -step, duration=duration)
-        w.up.setVisible(True)
+        #w.up.setVisible(True)
+        png = QtGui.QPixmap('img/u.png')
+        w.img.setPixmap(png)
 
     # determine yaw for left & right
     print('pose yaw ' + str(head_pose[0, 1]))
     if 10 < head_pose[0, 1] < 30:
         pyautogui.moveRel(-step, 0, duration=duration)
-        w.left.setVisible(True)
+        #w.left.setVisible(True)
+        png = QtGui.QPixmap('img/l.png')
+        w.img.setPixmap(png)
     if -30 < head_pose[0, 1] < -10:
         pyautogui.moveRel(step, 0, duration=duration)
-        w.right.setVisible(True)
+        #w.right.setVisible(True)
+        png = QtGui.QPixmap('img/r.png')
+        w.img.setPixmap(png)
 
 
 pointNum = 68

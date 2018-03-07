@@ -10,8 +10,15 @@ import pycurl
 import time
 import random
 import pyautogui
+import json
+import os
+from .database import QueueModel
+from .database import db
 
 global keywords
+
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
+
 
 
 def get_token():
@@ -60,6 +67,13 @@ def use_cloud(token):
     c.setopt(c.POSTFIELDSIZE, f_len)
     c.perform()
     print("finished api translate.")
+
+def set_click(click):
+    db.connect()
+    if not os.path.exists(os.path.join(BASEDIR, 'lock.db')) or True:
+        db.create_tables([QueueModel])
+        QueueModel.push(click)
+    db.close()
 
 def user_instruction(commands):
     print(commands)
@@ -122,6 +136,7 @@ def run(name):
 def start():
     p = Process(target=run,args=('recording',)) #必须加,号
     p.start()
+
 
 if __name__ == '__main__':
     start()
