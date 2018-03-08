@@ -20,14 +20,17 @@ CUDA = True
 step = 30  # pixels per step TODO Adjust according to device DPI
 duration = 0.1  # mouse movement duration
 
-lc_png = QtGui.QPixmap('img/lc.png')
-rc_png = QtGui.QPixmap('img/rc.png')
-d_png = QtGui.QPixmap('img/d.png')
-u_png = QtGui.QPixmap('img/u.png')
-l_png = QtGui.QPixmap('img/l.png')
-r_png = QtGui.QPixmap('img/r.png')
-
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
+
+
+def load_img():
+    global lc_png, rc_png, d_png, u_png, l_png, r_png
+    lc_png = QtGui.QPixmap('img/lc.png')
+    rc_png = QtGui.QPixmap('img/rc.png')
+    d_png = QtGui.QPixmap('img/d.png')
+    u_png = QtGui.QPixmap('img/u.png')
+    l_png = QtGui.QPixmap('img/l.png')
+    r_png = QtGui.QPixmap('img/r.png')
 
 
 def mouse_control(face_point, head_pose, w):
@@ -223,6 +226,8 @@ def start_recognition(w):
 
     blink_counter, blink_total = 0, 0
 
+    load_img()
+
     index = 0
     vc = cv2.VideoCapture(0)
     if vc.isOpened():  # try to get the first frame
@@ -232,7 +237,7 @@ def start_recognition(w):
     while ret:
         print(index)
         frame = cv2.flip(frame, 1)
-        frame = cv2.resize(frame, (512, 384))
+        frame = cv2.resize(frame, (256, 192))
 
         t = time.time()
         boxes = detect_face(detector, frame)
