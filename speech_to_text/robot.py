@@ -2,16 +2,15 @@
 
 from __future__ import print_function
 
-from . import recorder
-from multiprocessing import Process
-import wave
-import requests
-import pycurl
-import time
-import random
-import pyautogui
-import json
 import os
+import pycurl
+import wave
+from multiprocessing import Process
+
+import pyautogui
+import requests
+
+from . import recorder
 from .database import QueueModel
 from .database import db
 
@@ -80,6 +79,7 @@ def user_instruction(commands):
     if "上" in commands:
         pyautogui.scroll(clicks=1)
         # print("滚轮向上")
+
     if "下" in commands:
         pyautogui.scroll(clicks=-1)
         # print("滚轮向下")
@@ -88,9 +88,11 @@ def user_instruction(commands):
         if "左" in commands:
             pyautogui.click(button='left')
             # print("点击左键")
+            set_click('l')
         if "右" in commands:
             pyautogui.click(button='right')
             # print("点击右键")
+            set_click('r')
     if "双" in commands:
         if "左" in commands:
             pyautogui.doubleClick(button='left')
@@ -103,9 +105,11 @@ def user_instruction(commands):
         if "左" in commands:
             pyautogui.mouseDown(button='left')
             # print("按住左键")
+            set_click('l')
         if "右" in commands:
             pyautogui.mouseDown(button='right')
             # print("按住右键")
+            set_click('r')
     if "开" in commands:
         if "左" in commands:
             pyautogui.mouseUp(button='left')

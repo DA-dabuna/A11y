@@ -16,29 +16,36 @@ import os
 
 from blink_detect import blink
 
-CUDA = False
+CUDA = True
 step = 30  # pixels per step TODO Adjust according to device DPI
 duration = 0.1  # mouse movement duration
 
+lc_png = QtGui.QPixmap('img/lc.png')
+rc_png = QtGui.QPixmap('img/rc.png')
+d_png = QtGui.QPixmap('img/d.png')
+u_png = QtGui.QPixmap('img/u.png')
+l_png = QtGui.QPixmap('img/l.png')
+r_png = QtGui.QPixmap('img/r.png')
+
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
+
 
 def mouse_control(face_point, head_pose, w):
     if not head_pose.any():
         png = QtGui.QPixmap('img/m.png')
         w.img.setPixmap(png)
         return
-    #for a in [w.left, w.right, w.up, w.down]:
+    # for a in [w.left, w.right, w.up, w.down]:
     #    a.setVisible(False)
 
     db.connect()
     if not os.path.exists(os.path.join(BASEDIR, 'lock.db')) or True:
         db.create_tables([QueueModel])
-        if QueueModel.pop() == 'l':
-            png = QtGui.QPixmap('img/lc.png')
-            w.img.setPixmap(png)
-        else:
-            png = QtGui.QPixmap('img/rc.png')
-            w.img.setPixmap(png)
+        k = QueueModel.pop()
+        if k == 'l':
+            w.img.setPixmap(lc_png)
+        elif k == 'r':
+            w.img.setPixmap(rc_png)
     db.close()
 
     # determine pitch for up & down
@@ -46,27 +53,23 @@ def mouse_control(face_point, head_pose, w):
     # TODO laptop screen angle adjustment
     if 0 < head_pose[0, 0] < 30:
         pyautogui.moveRel(0, step, duration=duration)
-        #w.down.setVisible(True)
-        png = QtGui.QPixmap('img/d.png')
-        w.img.setPixmap(png)
+        # w.down.setVisible(True)
+        w.img.setPixmap(d_png)
     if -30 < head_pose[0, 0] < -20:
         pyautogui.moveRel(0, -step, duration=duration)
-        #w.up.setVisible(True)
-        png = QtGui.QPixmap('img/u.png')
-        w.img.setPixmap(png)
+        # w.up.setVisible(True)
+        w.img.setPixmap(u_png)
 
     # determine yaw for left & right
     print('pose yaw ' + str(head_pose[0, 1]))
     if 10 < head_pose[0, 1] < 30:
         pyautogui.moveRel(-step, 0, duration=duration)
-        #w.left.setVisible(True)
-        png = QtGui.QPixmap('img/l.png')
-        w.img.setPixmap(png)
+        # w.left.setVisible(True)
+        w.img.setPixmap(l_png)
     if -30 < head_pose[0, 1] < -10:
         pyautogui.moveRel(step, 0, duration=duration)
-        #w.right.setVisible(True)
-        png = QtGui.QPixmap('img/r.png')
-        w.img.setPixmap(png)
+        # w.right.setVisible(True)
+        w.img.setPixmap(r_png)
 
 
 pointNum = 68
@@ -273,8 +276,8 @@ def start_recognition(w):
         print('points used ' + str(time.time() - t) + 's')
         t = time.time()
 
-        blink_counter, blink_total = blink(detector, predictor_blink, frame, blink_counter, blink_total)
-        print('blink used ' + str(time.time() - t) + 's')
+        # blink_counter, blink_total = blink(detector, predictor_blink, frame, blink_counter, blink_total)
+        # print('blink used ' + str(time.time() - t) + 's')
 
         show_image(frame, face_points, boxes, head_pose)
         mouse_control(face_points, head_pose, w)
