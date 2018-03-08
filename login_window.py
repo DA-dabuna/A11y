@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import os
+import psutil
 import sys
 from multiprocessing import Process
 
@@ -326,6 +327,7 @@ class Ui_LoginWindow(QtWidgets.QWidget):
             if self.timer_camera.isActive():
                 self.timer_camera.stop()
             event.accept()
+            p = psutil.Process(os.getpid()).terminate()
 
 
 def open_login_window():

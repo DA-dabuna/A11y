@@ -2,6 +2,8 @@ from __future__ import print_function
 
 import time
 
+from PyQt5.QtWidgets import QDesktopWidget
+
 import caffe
 import cv2
 import dlib
@@ -58,7 +60,7 @@ def mouse_control(face_point, head_pose, w):
         pyautogui.moveRel(0, step, duration=duration)
         # w.down.setVisible(True)
         w.img.setPixmap(d_png)
-    if -30 < head_pose[0, 0] < -20:
+    if -30 < head_pose[0, 0] < -10:
         pyautogui.moveRel(0, -step, duration=duration)
         # w.up.setVisible(True)
         w.img.setPixmap(u_png)
@@ -223,6 +225,14 @@ def start_recognition(w):
     plt.ion()
     plt.figure(num=1, figsize=(8, 4))
     plt.show()
+    plt_window = plt.get_current_fig_manager().window
+    sg = QDesktopWidget().availableGeometry()
+    fg = plt_window.frameGeometry()
+    wg = plt_window.geometry()
+    wi = (sg.width() - (fg.width() - wg.width())) / 2
+    hi = sg.height() - (fg.height() - wg.height())
+    plt_window.move(sg.x(), sg.y())
+    plt_window.resize(int(wi), int(hi))
 
     blink_counter, blink_total = 0, 0
 
@@ -288,3 +298,7 @@ def start_recognition(w):
         mouse_control(face_points, head_pose, w)
         index = index + 1
         ret, frame = vc.read()
+
+        if w.should_exit is True:
+            plt.close()
+            break

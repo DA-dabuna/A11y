@@ -42,6 +42,9 @@ class Ui_main_window(object):
         self.button_start = QtWidgets.QPushButton(self.centralwidget)
         self.button_start.setGeometry(QtCore.QRect(0, 0, 41, 23))
         self.button_start.setObjectName("button_start")
+        self.button_exit = QtWidgets.QPushButton(self.centralwidget)
+        self.button_exit.setGeometry(QtCore.QRect(50, 0, 41, 23))
+        self.button_exit.setObjectName("button_exit")
         main_window.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(main_window)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 204, 23))
@@ -62,4 +65,5 @@ class Ui_main_window(object):
         #self.up.setText(_translate("main_window", "<html><head/><body><p><span style=\" font-size:24pt;\">↑</span></p></body></html>"))
         #self.right.setText(_translate("main_window", "<html><head/><body><p><span style=\" font-size:24pt;\">→</span></p></body></html>"))
         self.button_start.setText(_translate("main_window", "Start"))
+        self.button_exit.setText(_translate("main_window", "Exit"))
 

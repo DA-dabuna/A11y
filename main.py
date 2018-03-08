@@ -1,5 +1,4 @@
 import sys
-import time
 
 from login_window import open_login_window
 from speech_to_text import robot
